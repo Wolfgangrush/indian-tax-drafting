@@ -1,0 +1,44 @@
+{
+  "name": "indian-tax-drafting",
+  "version": "0.1.0-alpha",
+  "description": "Open-source Claude-compatible plugin for drafting Indian direct-tax appellate litigation pleadings and statutory registrations under the Income-tax Act 1961. Case-config-aware design — structural skeletons follow the statutory Form layouts (Form 35 under Rule 45, Form 36 under Rule 47, Form 10A under Rule 17A) and the parties' chosen forum (Commissioner of Income-tax (Appeals) / Income-tax Appellate Tribunal / High Court Tax Bench / Principal Commissioner or Commissioner of Income-tax for registration and revision / Dispute Resolution Panel), assessment year, financial year, limitation anchor, assessment-order vintage (pre-Finance-Act-2021 reassessment regime vs Section 148A regime), faceless-vs-physical jurisdiction, and demand-notice / penalty-notice trajectory are supplied by the user via a case-config file. Battle-tested workflows for CIT(Appeals) Form 35 appeal under Section 246A, ITAT Form 36 appeal under Section 253, High Court appeal on substantial questions of law under Section 260A, Section 12A / 12AB charitable-trust registration via Form 10A, objection to Section 148A(b) reassessment show-cause notice, reply to Section 271 / 270A penalty notice, objection to Section 263 PCIT / CIT revision against assessee, taxpayer-initiated revision before PCIT / CIT under Section 264, reply to Section 201 / 201(1A) TDS-default proceedings, and Dispute Resolution Panel objection under Section 144C. Includes the 6-agent drafting pipeline (Reader -> Format -> Drafter -> Verifier -> Refiner -> Overseer), shared tax drafting base with Income-tax Act 1961 + Income-tax Rules 1962 + Income-tax (Appellate Tribunal) Rules 1963 + Faceless Appeal Scheme 2021 + Faceless Assessment Scheme 2020 + Finance Act 2021 reassessment overhaul (Section 148A) + CBDT public-domain Circulars + Bharatiya Nagarik Suraksha Sanhita 2023 + Bharatiya Sakshya Adhiniyam 2023 discipline encoded.",
+  "author": {
+    "name": "Wolfgang Rush",
+    "url": "https://github.com/Wolfgangrush/indian-tax-drafting"
+  },
+  "license": "MIT",
+  "keywords": [
+    "law",
+    "legal",
+    "drafting",
+    "india",
+    "tax",
+    "income-tax",
+    "direct-tax",
+    "cit-appeals",
+    "itat",
+    "form-35",
+    "form-36",
+    "form-10a",
+    "section-148a",
+    "section-263",
+    "section-264",
+    "section-260a",
+    "section-144c",
+    "drp",
+    "transfer-pricing",
+    "tds",
+    "penalty",
+    "reassessment",
+    "faceless-appeal",
+    "12a-12ab",
+    "charitable-trust",
+    "lawtech",
+    "claude-compatible"
+  ],
+  "homepage": "https://github.com/Wolfgangrush/indian-tax-drafting",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wolfgangrush/indian-tax-drafting"
+  }
+}
