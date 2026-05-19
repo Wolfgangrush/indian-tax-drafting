@@ -348,7 +348,7 @@ A plugin that codifies the procedural skeletons + the statutory-currency rules +
 
 Foreign legal-AI tools cannot fill this gap. The procedural conventions are jurisdiction-specific; the statutory framework is Income-tax Act 1961 + Income-tax Rules 1962 + ITAT Rules 1963 + Faceless Schemes which no foreign training data has indexed at depth; the filing requirements at the e-filing portal and at the ITAT Registry are matters of bench practice that no foreign tool has encountered.
 
-This plugin opens that door. It is most-deeply-validated for the practice idiom of the author at the Bombay High Court Nagpur Bench, and shall be deepened with respect to other benches as community contributors raise GitHub issues and Pull Requests with their bench's specific Practice Directions.
+This plugin opens that door.
 
 ---
 
