@@ -6,6 +6,32 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/) and this 
 
 ---
 
+## [0.2.0-alpha] — 2026-05-24
+
+### Critical render-defect repair + pipeline-optionality
+
+This release inherits the v0.2.0-alpha fixes from `indian-hc-drafting-litigation` and adapts them to the direct-tax pipeline. The v0.1.0 render path produced filing-grade Markdown but the pandoc → `.docx` conversion failed CIT(A) / ITAT / High Court Tax Bench / DRP expectations on multiple counts (Form identifier not bold, section headers left-aligned, enclosure table column-headers wrapping vertically, ~6,200-word bloat).
+
+### Added
+
+- **Pre-customised direct-tax `reference.docx`** at `skills/_tax_drafting_base/reference.docx` with locked Word styles (TNR 14pt body, 1.5 line spacing, 4cm left / 2.5cm right-top-bottom margins, Heading 1 bold centered, Heading 2 bold centered with letter-spacing, Heading 3 bold left, fixed table layout).
+- **`build_reference_docx.py`** — reproducible build script for the shipped reference.docx.
+- **MARKDOWN HEADING DISCIPLINE** section in `_drafting_common/SKILL.md` and `agents/drafter/drafter.md` documenting the Markdown → Word-style mapping the Drafter must follow.
+- **VERBOSITY DISCIPLINE** in `_drafting_common/SKILL.md` setting per-case-type word-count targets (Form 35 CIT(A) 2,500–4,500 / 6,000; Form 36 ITAT 3,000–5,000 / 7,000; Section 260A HC 4,000–6,000 / 8,500; Form 10A 1,500–2,500 / 3,500; Section 148A 2,000–3,500 / 4,500; Section 270A/271 2,000–3,500 / 4,500; Section 263 2,500–4,000 / 5,500; Section 264 2,500–4,000 / 5,500; Section 201 2,000–3,500 / 4,500; Section 144C DRP 4,000–6,500 / 9,000).
+- **PIPELINE-OPTIONALITY** section in `_drafting_common/SKILL.md` — Verifier / Refiner / Overseer now OPTIONAL QC layers. Default exit point is after Stage 3 (Drafter); the advocate decides whether to invoke the QC stages.
+- **COVER-PAGE DISCIPLINE** — LIST OF ENCLOSURES begins on `\newpage` and carries ONLY Form identifier + Descriptive title + assessee short name + section header + table + signature block.
+
+### Changed
+
+- **Drafter agent prompt** extended with the Markdown-heading discipline, verbosity ceilings, cover-page discipline, and pandoc invocation against the shipped reference.docx.
+- **Pandoc invocation documented end-to-end.** The Drafter MUST use the shipped reference.docx; auto-generating one in the case folder is now banned.
+
+### Cost / token-budget note
+
+Running the full 6-agent pipeline burns approximately 600K tokens per draft, which can exhaust an advocate's Claude session limit. v0.2.0 makes Stages 4–6 OPTIONAL so a baseline Reader → Format → Drafter run (~280K tokens) is sufficient for routine pleadings (Form 10A registration applications, Section 201 TDS replies). The optional QC stages remain available for ITAT appeals with large quantum, Section 260A HC appeals, and Section 144C DRP objections in transfer-pricing matters.
+
+---
+
 ## [0.1.0-alpha] — 2026-05-16 (initial release)
 
 ### Added

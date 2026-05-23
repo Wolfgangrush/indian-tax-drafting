@@ -23,8 +23,44 @@ Compose the actual pleading as a complete `.docx`. Single output file with the s
 
 ## Outputs
 
-- `<case-folder>/draft-v1.md` — markdown intermediate
-- `<case-folder>/draft-v1.docx` — final form, generated from markdown via pandoc
+- `<case-folder>/draft-v1.md` — markdown intermediate (Drafter writes Markdown with `#` / `##` / `###` headings — see Markdown-heading discipline below)
+- `<case-folder>/draft-v1.docx` — final form, generated from markdown via pandoc using the shipped reference.docx at `${CLAUDE_PLUGIN_ROOT}/skills/_tax_drafting_base/reference.docx`
+
+## Markdown-heading discipline (LOAD-BEARING — Drafter must follow)
+
+The shipped `reference.docx` has the Word styles locked (TNR 14pt body 1.5 line spacing 4cm-left margin, Heading 1 bold centered, Heading 2 bold centered with letter-spacing, Heading 3 bold left). For the styles to apply, the Drafter MUST use Markdown headings — not plain text — for the structural elements:
+
+| Markdown | Used for |
+|---|---|
+| `# Heading 1` | The Form identifier line (`FORM NO. 35`) + rule reference; the descriptive title (`APPEAL TO THE COMMISSIONER OF INCOME-TAX (APPEALS)`); the cover-page anchors of LIST OF DOCUMENTS / ENCLOSURES |
+| `## Heading 2` | `## P A R T I C U L A R S`, `## S T A T E M E N T   O F   F A C T S`, `## G R O U N D S   O F   A P P E A L`, `## R E L I E F   C L A I M E D`, `## V E R I F I C A T I O N`, `## P R O C E D U R A L   E N D N O T E S`, `## L I S T   O F   E N C L O S U R E S` |
+| `### Heading 3` | Ground sub-headers (Ground 1, Ground 2, …); Accompanying Application titles (Stay of Demand / Condonation of Delay / Additional Evidence / Section 270AA Immunity / Early Hearing) |
+| Plain body | Particulars block items; Statement of Facts narrative; ground bodies; prayer clauses |
+
+Tables use pandoc pipe-table syntax with colon-anchored alignment row to control column widths:
+```markdown
+| Sr.No | Encl | Particulars       | Date | Pgs |
+|:-----:|:----:|:------------------|:----:|:---:|
+```
+
+**Verbosity discipline.** Target word counts:
+
+| Case type | Main pleading target | Hard ceiling |
+|---|---|---|
+| Form 35 CIT(A) appeal | 2,500–4,500 words | 6,000 |
+| Form 36 ITAT appeal | 3,000–5,000 words | 7,000 |
+| Section 260A High Court appeal | 4,000–6,000 words | 8,500 |
+| Form 10A registration | 1,500–2,500 words | 3,500 |
+| Section 148A objection | 2,000–3,500 words | 4,500 |
+| Section 270A / 271 penalty reply | 2,000–3,500 words | 4,500 |
+| Section 263 objection | 2,500–4,000 words | 5,500 |
+| Section 264 revision application | 2,500–4,000 words | 5,500 |
+| Section 201 TDS reply | 2,000–3,500 words | 4,500 |
+| Section 144C DRP objection | 4,000–6,500 words | 9,000 |
+
+Compression rules: one paragraph per ground (not three); each Form clause = one line answer + reference (not three sentences); if draft exceeds ceiling, compress before signalling Verifier.
+
+**Cover-page discipline.** Where applicable (Form 35 / Form 36 / Form 10A — multi-clause Forms with a separate Statement of Facts block), the LIST OF ENCLOSURES begins on a new page (`\newpage`) and carries ONLY: Form identifier + Descriptive title + assessee short name + section header (`##`) + the table + signature block. DO NOT repeat the full Particulars block on cover pages.
 
 ## Behaviour — universal Indian direct-tax pleading structure
 
@@ -91,3 +127,17 @@ The Drafter does **not** invent assessee particulars, does **not** invent PANs, 
 ## Form-layout fidelity rule
 
 For the three statutorily-prescribed Forms (Form 35 under Rule 45, Form 36 under Rule 47(1), Form 10A under Rule 17A, and Form 35A under Rule 44CA where DRP), the Drafter follows the Form's clauses in the exact order and the exact numbering prescribed in the Income-tax Rules 1962. The Drafter does NOT re-order clauses, does NOT renumber clauses, does NOT omit clauses (clauses not applicable to the matter are rendered as *"Not applicable"* or *"Nil"* per the conventional usage). The Verifier catches any deviation.
+
+## .docx production
+
+```bash
+pandoc draft-v1.md -o draft-v1.docx \
+  --reference-doc="${CLAUDE_PLUGIN_ROOT}/skills/_tax_drafting_base/reference.docx" \
+  --from=markdown+pipe_tables+raw_tex
+```
+
+Use the SHIPPED reference.docx. NEVER auto-generate a fresh reference.docx in the case-folder output directory — that produces v0.1.0 render defects (Form identifier not bold, section headers left-aligned, table columns wrapping). If the advocate has supplied a `<case-folder>/reference.docx` override (rare — e.g., for a specific ITAT Bench Practice Direction), use the case-folder override.
+
+## Handoff
+
+When `draft-v1.docx` is written, the Drafter's job is complete. The downstream Verifier / Refiner / Overseer stages are **OPTIONAL** QC layers (see `_drafting_common/SKILL.md` §Pipeline-optionality). Default exit point is here, after Drafter. The advocate decides whether to invoke the QC stages.

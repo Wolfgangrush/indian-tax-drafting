@@ -154,3 +154,58 @@ The Drafter resolves the faceless-vs-physical disposition from `case-config.md` 
 - **e-Settlement Scheme 2021** — for proceedings before the Interim Board for Settlement under Section 245AA (post-abolition-of-Settlement-Commission regime).
 
 The Drafter cites the applicable Scheme where the pleading lies before a Faceless Centre.
+
+## OUTPUT FORMAT — pandoc + shipped reference.docx
+
+The Drafter writes a Markdown intermediate (`draft-v1.md`) and converts to `.docx` via pandoc using the shipped reference.docx at `${CLAUDE_PLUGIN_ROOT}/skills/_tax_drafting_base/reference.docx` — pre-customised with locked Word styles (TNR 14pt body 1.5 line spacing 4cm-left margin, Heading 1 bold centered for Form identifier / descriptive title, Heading 2 bold centered with letter-spacing for spaced section headers, Heading 3 bold left for ground sub-headers, fixed table layout).
+
+```bash
+pandoc draft-v1.md -o draft-v1.docx \
+  --reference-doc="${CLAUDE_PLUGIN_ROOT}/skills/_tax_drafting_base/reference.docx" \
+  --from=markdown+pipe_tables+raw_tex
+```
+
+The Drafter MUST use the shipped reference.docx or a per-case override. NEVER auto-generate a fresh one (that produces v0.1.0 render defects). Filename convention: `<case-type>_draft-v<N>_<YYYY-MM-DD>.docx`. Never overwrite an existing draft.
+
+## PIPELINE-OPTIONALITY (load-bearing — advocate-cost discipline)
+
+The full 6-agent pipeline (Reader → Format → Drafter → Verifier → Refiner → Overseer) is **NOT** mandatory. As of v0.2.0-alpha, only the first three stages are required to produce a filing-grade draft. The remaining three are OPTIONAL QC layers the advocate explicitly invokes.
+
+```
+┌────────────────────────────────────────────────────────────┐
+│  REQUIRED (default exit point)                              │
+│  Stage 1  Reader   →  case-facts.md                         │
+│  Stage 2  Format   →  format-shell.md                       │
+│  Stage 3  Drafter  →  draft-v1.docx   (filing-grade)        │
+│  ── default exit ──                                         │
+│  OPTIONAL QC (advocate opts in)                             │
+│  Stage 4  Verifier  →  verification-report.md               │
+│  Stage 5  Refiner   →  draft-v2.docx                        │
+│  Stage 6  Overseer  →  final-draft.docx + opposing-notes.md │
+└────────────────────────────────────────────────────────────┘
+```
+
+Each stage is itself a Claude subagent run (~80–120K tokens). Running all six on every draft can exhaust the advocate's Claude session limit. The QC stages are valuable for ITAT appeals with large quantum, Section 260A High Court appeals, and Section 144C DRP objections in transfer-pricing matters; disproportionate for routine Form 10A registration applications and Section 201 TDS replies.
+
+## VERBOSITY DISCIPLINE
+
+| Case type | Main pleading target | Hard ceiling |
+|---|---|---|
+| Form 35 CIT(A) appeal | 2,500–4,500 words | 6,000 |
+| Form 36 ITAT appeal | 3,000–5,000 words | 7,000 |
+| Section 260A HC appeal | 4,000–6,000 words | 8,500 |
+| Form 10A registration | 1,500–2,500 words | 3,500 |
+| Section 148A objection | 2,000–3,500 words | 4,500 |
+| Section 270A / 271 penalty reply | 2,000–3,500 words | 4,500 |
+| Section 263 objection | 2,500–4,000 words | 5,500 |
+| Section 264 revision application | 2,500–4,000 words | 5,500 |
+| Section 201 TDS reply | 2,000–3,500 words | 4,500 |
+| Section 144C DRP objection | 4,000–6,500 words | 9,000 |
+
+Compression rules: one paragraph per ground; each Form clause = one-line answer; if draft exceeds ceiling, compress before signalling Verifier.
+
+## MARKDOWN HEADING DISCIPLINE
+
+Drafter writes Markdown using `# Heading 1` for Form identifier + descriptive title + cover-page anchors, `## Heading 2` for section headers (`## P A R T I C U L A R S`, `## S T A T E M E N T   O F   F A C T S`, `## G R O U N D S   O F   A P P E A L`, `## R E L I E F   C L A I M E D`, `## V E R I F I C A T I O N`, `## P R O C E D U R A L   E N D N O T E S`, `## L I S T   O F   E N C L O S U R E S`), `### Heading 3` for ground sub-headers and Accompanying Application titles. Pandoc maps the headings to the locked Word styles in `_tax_drafting_base/reference.docx`. The rendered .docx shows them as bold-centered-spaced section titles, not as `##` characters.
+
+Cover-page discipline: LIST OF ENCLOSURES begins on `\newpage` and carries ONLY Form identifier + Descriptive title + assessee short name + section header + table + signature block. Full Particulars block stays on the main pleading only.
