@@ -128,15 +128,22 @@ The Drafter does **not** invent assessee particulars, does **not** invent PANs, 
 
 For the three statutorily-prescribed Forms (Form 35 under Rule 45, Form 36 under Rule 47(1), Form 10A under Rule 17A, and Form 35A under Rule 44CA where DRP), the Drafter follows the Form's clauses in the exact order and the exact numbering prescribed in the Income-tax Rules 1962. The Drafter does NOT re-order clauses, does NOT renumber clauses, does NOT omit clauses (clauses not applicable to the matter are rendered as *"Not applicable"* or *"Nil"* per the conventional usage). The Verifier catches any deviation.
 
-## .docx production
+## .docx production (two-step process — Step 2 is NON-NEGOTIABLE)
 
 ```bash
+# Step 1 — pandoc → .docx with locked Word styles
 pandoc draft-v1.md -o draft-v1.docx \
   --reference-doc="${CLAUDE_PLUGIN_ROOT}/skills/_tax_drafting_base/reference.docx" \
   --from=markdown+pipe_tables+raw_tex
+
+# Step 2 — force table column widths (Particulars block tables, Enclosure list,
+# Form 35 numeric clause tables, ITAT statement-of-facts dates-events tables)
+python3 "${CLAUDE_PLUGIN_ROOT}/skills/_tax_drafting_base/fix_docx_tables.py" draft-v1.docx
 ```
 
-Use the SHIPPED reference.docx. NEVER auto-generate a fresh reference.docx in the case-folder output directory — that produces v0.1.0 render defects (Form identifier not bold, section headers left-aligned, table columns wrapping). If the advocate has supplied a `<case-folder>/reference.docx` override (rare — e.g., for a specific ITAT Bench Practice Direction), use the case-folder override.
+Use the SHIPPED reference.docx. NEVER auto-generate a fresh reference.docx in the case-folder output directory — that produces v0.1.0 render defects (Form identifier not bold, section headers left-aligned, table columns wrapping). The fix_docx_tables.py post-pandoc script forces column widths on every table (5-col 8/8/60/14/10; 4-col 10/10/65/15; 3-col 10/75/15; 2-col 18/82). Pandoc pipe-tables do not reliably honour `tblLayout=fixed`; skipping the fix script reproduces the v0.2.0 stacking-column defect.
+
+If the advocate has supplied a `<case-folder>/reference.docx` override (rare — e.g., for a specific ITAT Bench Practice Direction), use the case-folder override. The fix script runs regardless.
 
 ## Handoff
 
