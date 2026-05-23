@@ -209,3 +209,45 @@ Compression rules: one paragraph per ground; each Form clause = one-line answer;
 Drafter writes Markdown using `# Heading 1` for Form identifier + descriptive title + cover-page anchors, `## Heading 2` for section headers (`## P A R T I C U L A R S`, `## S T A T E M E N T   O F   F A C T S`, `## G R O U N D S   O F   A P P E A L`, `## R E L I E F   C L A I M E D`, `## V E R I F I C A T I O N`, `## P R O C E D U R A L   E N D N O T E S`, `## L I S T   O F   E N C L O S U R E S`), `### Heading 3` for ground sub-headers and Accompanying Application titles. Pandoc maps the headings to the locked Word styles in `_tax_drafting_base/reference.docx`. The rendered .docx shows them as bold-centered-spaced section titles, not as `##` characters.
 
 Cover-page discipline: LIST OF ENCLOSURES begins on `\newpage` and carries ONLY Form identifier + Descriptive title + assessee short name + section header + table + signature block. Full Particulars block stays on the main pleading only.
+
+
+---
+
+## v0.2.2 OUTPUT-PAIRING DISCIPLINE (load-bearing — every agent must follow)
+
+**Every `.md` output artifact MUST be paired with a `.docx`.** Advocates do not natively read Markdown — they read Word. Every pipeline output (case-facts.md from Reader, format-shell.md from Format, draft-v1.md from Drafter, verification-report.md from Verifier, draft-v2.md from Refiner, opposing-notes.md from Overseer) must have a corresponding `.docx` rendered with the same locked Word styles.
+
+**This plugin produces pleadings** — the shipped reference.docx is the pleading variant (TNR 14pt 1.5 spacing, Heading 2 bold + UNDERLINED + centered with letter-spacing for the spaced `F A C T S` effect).
+
+### How to produce the paired `.docx`
+
+Every agent runs the shipped helper script as its final post-`.md`-write step:
+
+```bash
+bash "${CLAUDE_PLUGIN_ROOT}/skills/_tax_drafting_base/pair_md_to_docx.sh" <output.md>
+```
+
+The helper:
+1. Resolves the reference.docx in `${CLAUDE_PLUGIN_ROOT}/skills/_tax_drafting_base/reference.docx`
+2. Runs pandoc with `--reference-doc` and `--from=markdown+pipe_tables+raw_tex` to produce the `.docx`
+3. Runs the shipped `fix_docx_tables.py` to force column widths on every table
+
+For overriding (e.g., a per-case-folder reference.docx), pass the reference.docx as the second argument:
+
+```bash
+bash "${CLAUDE_PLUGIN_ROOT}/skills/_tax_drafting_base/pair_md_to_docx.sh" \
+    <output.md> <case-folder>/reference.docx
+```
+
+### Per-agent output-pairing map
+
+| Agent | `.md` output | Paired `.docx` |
+|---|---|---|
+| Reader | `case-facts.md` | `case-facts.docx` |
+| Format | `format-shell.md` | `format-shell.docx` |
+| Drafter | `draft-v1.md` | `draft-v1.docx` |
+| Verifier | `verification-report.md` | `verification-report.docx` |
+| Refiner | `draft-v2.md` | `draft-v2.docx` |
+| Overseer | `opposing-notes.md` + `final-draft.md` | `opposing-notes.docx` + `final-draft.docx` |
+
+Every agent calls `pair_md_to_docx.sh` once for each `.md` it writes. Skipping this step leaves the advocate with `.md` files that cannot be opened natively in Word.
