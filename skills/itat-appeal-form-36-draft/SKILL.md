@@ -18,7 +18,7 @@ form_number: 36
 rule_reference: Rule 47(1) of the Income-tax Rules 1962
 case_number_prefix: I.T.A.
 pleading_type: Appeal
-typical_forum: Income-tax Appellate Tribunal — [Bench], [City] (e.g. ITAT Bench 'A', Mumbai / ITAT Bench, Nagpur / ITAT Delhi Bench 'D')
+typical_forum: Income-tax Appellate Tribunal — [Bench], [City] (e.g. ITAT Bench 'A', Mumbai / ITAT Bench, [bench city] / ITAT Delhi Bench 'D')
 typical_parties: Appellant (assessee or Department) + Respondent (Department or assessee)
 statutory_opening: "This appeal is preferred by the Appellant under Section 253(1)(a) / (b) / (c) / Section 253(2) of the Income-tax Act 1961 read with Rule 47(1) of the Income-tax Rules 1962 against the order dated ____ passed by the Commissioner of Income-tax (Appeals) / Principal Commissioner of Income-tax / Commissioner of Income-tax under Section [250 / 263 / 271 / etc.] of the Income-tax Act 1961 for Assessment Year ____."
 ground_clauses:

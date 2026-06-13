@@ -29,7 +29,7 @@ Single file: `<case-folder>/format-shell.md`
    - CIT(A) faceless — *"BEFORE THE COMMISSIONER OF INCOME-TAX (APPEALS), NATIONAL FACELESS APPEAL CENTRE, DELHI"*
    - CIT(A) physical (where matter falls within the carve-outs) — *"BEFORE THE COMMISSIONER OF INCOME-TAX (APPEALS), [City]"*
    - ITAT — *"BEFORE THE INCOME-TAX APPELLATE TRIBUNAL, [Bench], [City]"* (e.g. *"INCOME-TAX APPELLATE TRIBUNAL, BENCH 'A', MUMBAI"*)
-   - High Court — *"IN THE HIGH COURT OF [Judicature at / of] [State / City]"* + Tax Bench designation where applicable (e.g. *"IN THE HIGH COURT OF JUDICATURE AT BOMBAY, NAGPUR BENCH"*)
+   - High Court — *"IN THE HIGH COURT OF [Judicature at / of] [State / City]"* + Tax Bench designation where applicable (e.g. *"IN THE HIGH COURT OF JUDICATURE AT BOMBAY, [PLACE] BENCH"*)
    - PCIT / CIT (Section 263 / 264) — *"BEFORE THE PRINCIPAL COMMISSIONER OF INCOME-TAX / COMMISSIONER OF INCOME-TAX, [City]"*
    - DRP — *"BEFORE THE DISPUTE RESOLUTION PANEL, [Seat]"* (e.g. *"DISPUTE RESOLUTION PANEL-2, MUMBAI"*)
 

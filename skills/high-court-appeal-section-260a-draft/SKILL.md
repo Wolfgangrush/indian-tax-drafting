@@ -18,7 +18,7 @@ form_number: n/a (Memorandum of Appeal per State High Court Tax Bench Rules)
 rule_reference: Section 260A of the Income-tax Act 1961 + the High Court Rules of the relevant State (Bombay High Court Tax Appeal Rules / Delhi High Court Rules / Gujarat High Court Rules / Karnataka High Court Rules / etc.)
 case_number_prefix: Income-tax Appeal No. / Tax Appeal No. (per State High Court convention)
 pleading_type: Memorandum of Appeal
-typical_forum: High Court — Tax Bench (e.g. High Court of Judicature at Bombay, Nagpur Bench / High Court of Delhi / High Court of Gujarat / etc.)
+typical_forum: High Court — Tax Bench (e.g. High Court of Judicature at Bombay, [Your Bench] / High Court of Delhi / High Court of Gujarat / etc.)
 typical_parties: Appellant (assessee or Commissioner of Income-tax) + Respondent (Commissioner of Income-tax or assessee)
 statutory_opening: "This appeal is preferred under Section 260A of the Income-tax Act 1961 against the order dated ____ passed by the Income-tax Appellate Tribunal, [Bench], [City] in I.T.A. No. ____ of ____ for Assessment Year ____, on the substantial questions of law set out hereinafter."
 substantial_questions_of_law_framework: "Per Sir Chunilal V. Mehta v. Century Spinning & Manufacturing Co. (1962) read in Santosh Hazari v. Purushottam Tiwari (2001) 3 SCC 179 and Hero Vinoth v. Seshammal (2006) 5 SCC 545, a 'substantial question of law' is one (a) of general public importance, OR (b) directly and substantially affecting the rights of the parties, AND (c) not previously settled by the Supreme Court / Privy Council, AND (d) not free from difficulty / calling for fresh consideration. The questions must be FORMULATED at the threshold of the appeal — the gateway to the High Court's jurisdiction under Section 260A."
@@ -67,7 +67,7 @@ Section 261 of the Income-tax Act 1961 provides for appeal to the Supreme Court 
 ## State High Court Tax Bench Rules
 
 The Drafter pulls the State-specific High Court Tax Bench Rules from `case-config.md`. Variations across States:
-- **Bombay High Court** — Tax Appeals heard at Mumbai / Nagpur / Aurangabad / Panaji benches; paper-book format per the Bombay High Court (Original Side) Rules; substantial-questions-of-law admission framework per the *CIT v. Vijaya Bank* (2010) line.
+- **Bombay High Court** — Tax Appeals heard at Mumbai / [bench city] / Aurangabad / Panaji benches; paper-book format per the Bombay High Court (Original Side) Rules; substantial-questions-of-law admission framework per the *CIT v. Vijaya Bank* (2010) line.
 - **Delhi High Court** — Tax Appeals heard by the Tax Bench; Section 260A admission framework per the *CIT v. Sotheby's* (2017) line.
 - **Gujarat High Court** — Tax Appeals admission per the *CIT v. Gujarat Narmada Valley Fertilisers* (2014) line.
 - Other States follow analogous patterns.

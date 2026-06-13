@@ -10,12 +10,12 @@
 >
 > This software generates assistive drafts and suggestions only. Every legal claim, citation, statute reference, procedural step, deadline calculation, and ground of relief must be independently verified by a qualified human practitioner before filing, advising a client, or relying on the output. The publisher accepts no liability for outputs used without verification.
 
-> 🛡️ **Privacy primitive — Reader agent invokes the gateway:** This drafting plugin's **Reader agent** (the first agent in the 6-agent pipeline) calls [pseudonymisation-gateway](https://github.com/Wolfgangrush/pseudonymisation-gateway) (MIT · Wolfgang Rush) on the user's case folder BEFORE any cloud-LLM call. Real client names · government IDs · case numbers · phone numbers · currency amounts are replaced with placeholders (`[PERSON_1]` · `[AADHAAR_1]` · `[CASE_NO_1]` · etc.) in a session-scoped in-memory token map that never touches disk. Downstream agents (Format · Drafter · Verifier · Refiner) work entirely on the sanitized text. The **Overseer agent** (the final agent) calls `desanitize()` to restore real values in the final pleading before it reaches the file system. Cloud LLM vendors never see your client's real PII.
+> 🛡️ **Privacy primitive — Reader agent invokes the gateway:** This drafting plugin's **Reader agent** (the first agent in the 6-agent pipeline) calls [pseudonymisation-gateway](https://github.com/Wolfgangrush/pseudonymisation-gateway) (MIT · wolfgang_rush) on the user's case folder BEFORE any cloud-LLM call. Real client names · government IDs · case numbers · phone numbers · currency amounts are replaced with placeholders (`[PERSON_1]` · `[AADHAAR_1]` · `[CASE_NO_1]` · etc.) in a session-scoped in-memory token map that never touches disk. Downstream agents (Format · Drafter · Verifier · Refiner) work entirely on the sanitized text. The **Overseer agent** (the final agent) calls `desanitize()` to restore real values in the final pleading before it reaches the file system. Cloud LLM vendors never see your client's real PII.
 
 
-## 🚀 Install — Wolfgang Rush marketplace
+## 🚀 Install — wolfgang_rush marketplace
 
-This plugin is part of the [Wolfgang Rush plugin family](https://github.com/Wolfgangrush/wolfgang-rush-marketplace) — 14 Indian-court drafting plugins distributed via one Claude Code marketplace.
+This plugin is part of the [wolfgang_rush plugin family](https://github.com/Wolfgangrush/wolfgang-rush-marketplace) — 14 Indian-court drafting plugins distributed via one Claude Code marketplace.
 
 **Via Claude Code (CLI) — recommended for the plugin family:**
 
@@ -274,7 +274,7 @@ This file declares all forum-level / case-type-level / matter-level constants th
 
 Minimum fields:
 
-- `forum` — exact name of the appellate authority / tribunal / court (e.g. *"Commissioner of Income-tax (Appeals), National Faceless Appeal Centre, Delhi"* / *"Income-tax Appellate Tribunal, [Bench], [City]"* / *"High Court of Judicature at Bombay, Nagpur Bench"* / *"Principal Commissioner of Income-tax, [City]"* / *"Dispute Resolution Panel, [Seat]"*)
+- `forum` — exact name of the appellate authority / tribunal / court (e.g. *"Commissioner of Income-tax (Appeals), National Faceless Appeal Centre, Delhi"* / *"Income-tax Appellate Tribunal, [Bench], [City]"* / *"High Courts of India"* / *"Principal Commissioner of Income-tax, [City]"* / *"Dispute Resolution Panel, [Seat]"*)
 - `case_type` — one of the ten supported case types
 - `case_number_year`
 - `assessment_year` — in format YYYY-YY
@@ -333,7 +333,7 @@ The MIT licence is the most permissive widely-recognised open-source licence. An
 
 ## Sibling plugins
 
-This plugin is one in the **Wolfgang Rush** family of Indian legal-drafting plugins. All thirteen siblings ship under the same six-agent pipeline (Reader → Format → Drafter → Verifier → Refiner → Overseer) and the family-of-plugins doctrine — each plugin narrowly scoped to one practice area / forum:
+This plugin is one in the **wolfgang_rush** family of Indian legal-drafting plugins. All thirteen siblings ship under the same six-agent pipeline (Reader → Format → Drafter → Verifier → Refiner → Overseer) and the family-of-plugins doctrine — each plugin narrowly scoped to one practice area / forum:
 
 | Plugin | GitHub repo | Scope |
 |---|---|---|
@@ -371,7 +371,7 @@ This plugin opens that door.
 
 - [x] **v0.1.0-alpha (current)** — universal direct-tax pleading skeleton + 10 case-type skills + 6-agent pipeline + privacy firewall + Verifier disciplines + 0 bench-specific exemplars
 - [ ] **v0.1.x** — bug fixes, quality-gate iteration, language-register polish, formatting refinements driven by user feedback
-- [ ] **v0.x onward** — bench-specific Practice Direction calibration deepening per ITAT bench (Mumbai / Delhi / Chennai / Kolkata / Bangalore / Ahmedabad / Hyderabad / Pune / Nagpur) and per High Court Tax Bench, additional case-type skills (Section 154 rectification application / Section 220(6) stay application / Section 154 vs Section 263 election advisories / Section 273A waiver / Section 245C settlement application / Direct-Tax Vivad-se-Vishwas application where revived), and procedural-rule updates as CBDT notifications arrive
+- [ ] **v0.x onward** — bench-specific Practice Direction calibration deepening per ITAT bench (Mumbai / Delhi / Chennai / Kolkata / Bangalore / Ahmedabad / Hyderabad / Pune / [bench city]) and per High Court Tax Bench, additional case-type skills (Section 154 rectification application / Section 220(6) stay application / Section 154 vs Section 263 election advisories / Section 273A waiver / Section 245C settlement application / Direct-Tax Vivad-se-Vishwas application where revived), and procedural-rule updates as CBDT notifications arrive
 - [ ] **v1.0.0** — stable release after community-validated formatting and field-testing
 
 Per-bench deep validation will arrive in the order advocates contribute. The plugin's case-config architecture means any advocate filing regularly before a given ITAT bench or High Court Tax Bench can deepen the calibration for that bench by opening an issue or pull request with their bench's idiom — no central roadmap is needed to enable that. The roadmap above is therefore intentionally open-ended.
@@ -406,7 +406,7 @@ Issues raised with reproducible context are handled on a best-effort basis; this
 
 ## Author and brand
 
-The author is **Rushikesh R. Mahajan**, Advocate, practising before the Bombay High Court, Nagpur Bench. The plugin is published under the open-source brand **Wolfgang Rush**, which is the author's publishing handle for legal-technology infrastructure. Personal accountability under the Advocates Act 1961 attaches to the author regardless of the use of a publishing handle.
+The author is **Rushikesh R. Mahajan**, Advocate, practising before the High Courts of India. The plugin is published under the open-source brand **wolfgang_rush**, which is the author's publishing handle for legal-technology infrastructure. Personal accountability under the Advocates Act 1961 attaches to the author regardless of the use of a publishing handle.
 
 ---
 
