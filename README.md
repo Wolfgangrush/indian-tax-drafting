@@ -1,3 +1,18 @@
+<div align="center">
+
+<img src="docs/banner.png" width="820"/>
+
+**Open-source Claude plugin for drafting Indian direct-tax appellate pleadings — Form 35 to Section 260A**
+
+Visit the live site: [wolfgangrush.github.io](https://wolfgangrush.github.io)
+
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Claude Plugin](https://img.shields.io/badge/Claude-Plugin-purple)](https://claude.ai)
+[![Made in India](https://img.shields.io/badge/Made%20in-India-orange)](#)
+
+</div>
+
+
 # indian-tax-drafting
 
 > **Open-source Claude-compatible plugin for drafting Indian direct-tax appellate litigation pleadings and statutory registrations under the Income-tax Act 1961.**
